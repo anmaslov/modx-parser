@@ -26,9 +26,10 @@ abstract class BuilderItem{
     /**
      * copy images to local server
      */
-    protected function copyImages() {
-        foreach ($this->images as $image) {
-            //todo copy images to sever
+    public function copyImages() {
+        foreach ($this->_item->getImages() as $image) {
+            //print_r($image['src']);
+            copy($image['src'] , __DIR__ . '/test.jpg');
         }
     }
 

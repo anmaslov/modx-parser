@@ -61,5 +61,13 @@ class Item
         $this->_properies = $properies;
     }
 
+    /**
+     * @return string
+     */
+    public function getImages()
+    {
+        return $this->_images;
+    }
+
 
 }

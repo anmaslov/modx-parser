@@ -25,12 +25,10 @@ class ItemBuilder{
         $this->_builderItem->createNewItem();
 
         $this->_builderItem->loadPage($itemName);
-        $this->_builderItem->loadDom();
 
         $this->_builderItem->getTitle();
-
-        /*$this->_builderItem->getPrice();
+        $this->_builderItem->getPrice();
         $this->_builderItem->getProperties();
-        $this->_builderItem->getImages();*/
+        $this->_builderItem->getImages();
     }
 }
