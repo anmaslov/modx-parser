@@ -9,7 +9,7 @@ namespace app;
 
 use anmaslov\parser\ItemBuilder;
 
-use anmaslov\parser\BuilderStartPage;
+use anmaslov\parser\BuilderYandexMarket;
 
 
 class App
@@ -18,10 +18,11 @@ class App
     {
         $itemBuilder = new ItemBuilder();
 
-        $builderStartPage = new BuilderStartPage();
+        //$builderStartPage = new BuilderStartPage();
+        $builderYandexMarket = new BuilderYandexMarket();
 
-        $itemBuilder->setBuilderItem( $builderStartPage );
-        $itemBuilder->constructItem('15 лет');
+        $itemBuilder->setBuilderItem( $builderYandexMarket );
+        $itemBuilder->constructItem('THL W');
 
         $shopItem = $itemBuilder->getItem();
 

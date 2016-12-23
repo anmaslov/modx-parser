@@ -9,7 +9,7 @@ namespace anmaslov\parser;
 //Пример, для теста, тестируется wordPress на localhost
 class BuilderStartPage extends BuilderItem{
 
-    protected $_uri = 'http:/localhost';
+    protected $_uri = 'http://localhost';
 
     public function loadPage($itemName)
     {
