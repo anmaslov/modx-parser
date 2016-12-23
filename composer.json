@@ -1,0 +1,22 @@
+{
+    "name": "maslovan/parser",
+    "description": "Parse shop item description",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Maslov",
+            "email": "lelick29@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "olamedia/nokogiri": "*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/app",
+            "lib/parser"
+        ]
+    }
+}
