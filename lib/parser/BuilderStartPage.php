@@ -2,21 +2,26 @@
 /**
  * User: MaslovAN
  * Date: 23.12.2016
- * Time: 11:41
+ * Time: 14:35
  */
-
 namespace anmaslov\parser;
 
-class BuilderPriceRu extends BuilderItem{
+
+class BuilderStartPage extends BuilderItem{
+
+    protected $_uri = 'http://localhost';
 
     public function loadPage($itemName)
     {
-        // TODO: Implement loadPage() method.
+        //$this->getPage("$this->_uri/search/?query=$itemName" , $this->_uri);
+        $this->getPage("$this->_uri" , $this->_uri);
     }
 
     public function getTitle()
     {
-        // TODO: Implement getTitle() method.
+        $caption = $this->_nkg->get('#wp-statistics ul>li')->toArray();
+        //get widget statistic from start page
+        $this->_item->setTitle($caption);
     }
 
     public function getPrice()
@@ -33,6 +38,5 @@ class BuilderPriceRu extends BuilderItem{
     {
         // TODO: Implement getImages() method.
     }
-
 
 }

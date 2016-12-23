@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
  * User: MaslovAN
  * Date: 22.12.2016
  * Time: 14:44
@@ -9,7 +8,7 @@ namespace anmaslov\parser;
 
 class BuilderYandexMarket extends BuilderItem{
 
-    public function loadPage()
+    public function loadPage($itemName)
     {
         $this->_item->setTitle('test page');
     }

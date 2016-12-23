@@ -1,7 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: MaslovAN
  * Date: 23.12.2016
  * Time: 11:42
  * Управляющий класс
@@ -23,18 +21,16 @@ class ItemBuilder{
         return $this->_builderItem->getItem();
     }
 
-    public function constructItem() {
+    public function constructItem($itemName) {
         $this->_builderItem->createNewItem();
-        $this->_builderItem->loadPage();
-        /*$this->_builderItem->loadDom();
+
+        $this->_builderItem->loadPage($itemName);
+        $this->_builderItem->loadDom();
+
         $this->_builderItem->getTitle();
-        $this->_builderItem->getPrice();
+
+        /*$this->_builderItem->getPrice();
         $this->_builderItem->getProperties();
         $this->_builderItem->getImages();*/
-
-        /*$this->_builderPizza->createNewPizza ();
-        $this->_builderPizza->buildPastry ();
-        $this->_builderPizza->buildSauce ();
-        $this->_builderPizza->buildGarniture ();*/
     }
 }
