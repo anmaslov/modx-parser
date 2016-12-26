@@ -54,9 +54,7 @@ class BuilderStartPage extends BuilderItem{
         );
         $this->_item->setProperies($prop);
 
-        $propTbl = $this->PropertyToTable();
-        $this->_item->setPropTable($propTbl);
-
+        $this->PropertyToTable();
     }
 
     public function getImages()

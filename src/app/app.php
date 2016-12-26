@@ -9,16 +9,16 @@ namespace app;
 
 use anmaslov\parser\ItemBuilder;
 
-use anmaslov\parser\BuilderYandexMarket;
+use anmaslov\parser\BuilderPriceRu;
 
 
 class App
 {
     public function run()
     {
-        $itemBuilder = new ItemBuilder(new BuilderYandexMarket);
+        $itemBuilder = new ItemBuilder(new BuilderPriceRu);
 
-        $itemBuilder->constructItem('THL W100');
+        $itemBuilder->constructItem('Xiaomi Redmi 3s');
         $shopItem = $itemBuilder->getItem();
 
         echo '<pre>';

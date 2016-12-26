@@ -49,6 +49,7 @@ abstract class BuilderItem{
                 $rStr .= '</tr>';
             }
             $rStr .= '</table>';
+            $this->_item->setPropTable($rStr);
             return $rStr;
         }else{
             return '';
