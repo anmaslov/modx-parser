@@ -28,8 +28,9 @@ abstract class BuilderItem{
      */
     public function copyImages() {
         foreach ($this->_item->getImages() as $image) {
-            //print_r($image['src']);
-            copy($image['src'] , __DIR__ . '/test.jpg');
+            copy($image['src'] ,
+                __DIR__ . '/../../upload/' .
+                substr(md5(rand()), 0, 7) . '.' . Utils::extension($image['src']));
         }
     }
 
@@ -37,10 +38,11 @@ abstract class BuilderItem{
      * Covert array property to table
      * @return string
      */
-    protected function PropertyToTable() {
-        if (count($this->properties) > 0){
+    public function PropertyToTable() {
+        if (count($this->_item->getProperies()) > 0){
+            var_dump($this->_item->getProperies());
             $rStr = '<table>';
-            foreach ($this->properties as $arKey=>$arItem) {
+            foreach ($this->_item->getProperies() as $arKey=>$arItem) {
                 $rStr .= '<tr>';
                 $rStr .= '<td><b>' . $arKey . '</b></td>';
                 $rStr .= '<td>' . $arItem . '</td>';

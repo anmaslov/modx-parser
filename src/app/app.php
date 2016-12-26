@@ -16,14 +16,9 @@ class App
 {
     public function run()
     {
-        $itemBuilder = new ItemBuilder();
+        $itemBuilder = new ItemBuilder(new BuilderYandexMarket);
 
-        //$builderStartPage = new BuilderStartPage();
-        $builderYandexMarket = new BuilderYandexMarket();
-
-        $itemBuilder->setBuilderItem( $builderYandexMarket );
-        $itemBuilder->constructItem('THL W');
-
+        $itemBuilder->constructItem('THL W100');
         $shopItem = $itemBuilder->getItem();
 
         echo '<pre>';

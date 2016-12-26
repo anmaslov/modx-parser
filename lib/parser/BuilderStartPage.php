@@ -7,6 +7,7 @@
 namespace anmaslov\parser;
 
 //Пример, для теста, тестируется wordPress на localhost
+
 class BuilderStartPage extends BuilderItem{
 
     protected $_uri = 'http://localhost';
@@ -45,12 +46,17 @@ class BuilderStartPage extends BuilderItem{
         $properties = $this->_nkg->get('.entry-content p')->toText();
         $this->_item->setDescription($properties);
 
+        //Заглушка для свойств
         $prop = array(
             'Top' => '30',
             'Color' => 'blue',
             'Size' => 'xxl',
         );
         $this->_item->setProperies($prop);
+
+        $propTbl = $this->PropertyToTable();
+        $this->_item->setPropTable($propTbl);
+
     }
 
     public function getImages()
@@ -58,7 +64,7 @@ class BuilderStartPage extends BuilderItem{
         $images = $this->_nkg->get('.entry-content img')->toArray();
         $this->_item->setImages($images);
 
-        $this->copyImages();
+        //$this->copyImages();
     }
 
 }

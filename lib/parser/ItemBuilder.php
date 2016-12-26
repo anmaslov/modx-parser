@@ -11,16 +11,28 @@ class ItemBuilder{
 
     private $_builderItem;
 
-    public function setBuilderItem(BuilderItem $bi)
+    /**
+     * ItemBuilder constructor.
+     * @param $builderItem
+     */
+    public function __construct(BuilderItem $builderItem)
     {
-        $this->_builderItem = $bi;
+        $this->_builderItem = $builderItem;
     }
 
+    /**
+     * Get item
+     * @return mixed
+     */
     public function getItem()
     {
         return $this->_builderItem->getItem();
     }
 
+    /**
+     * Main constructor
+     * @param $itemName
+     */
     public function constructItem($itemName) {
         $this->_builderItem->createNewItem();
 

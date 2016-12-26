@@ -20,6 +20,23 @@ class Item
     private $_price = '';
     private $_images = '';
     private $_properies = '';
+    private $_propTable = '';
+
+    /**
+     * @return string
+     */
+    public function getProperies()
+    {
+        return $this->_properies;
+    }
+
+    /**
+     * @param string $propTable
+     */
+    public function setPropTable($propTable)
+    {
+        $this->_propTable = $propTable;
+    }
 
     /**
      * @param string $title
