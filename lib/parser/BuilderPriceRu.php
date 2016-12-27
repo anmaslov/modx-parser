@@ -19,6 +19,23 @@ class BuilderPriceRu extends BuilderItem{
 
         $this->getPage("$this->_uri/search/?query=$itemName" , $this->_uri);
         $this->loadDom();
+
+        $link = $this->getFirstLink();
+
+        if ($link) { //Если попадаем на список ссылок - выбираем первую попавшую
+            $this->getPage($this->_uri . '/' . $link, $this->_uri);
+            $this->loadDom();
+        }
+    }
+
+    public function getFirstLink()
+    {
+        $links = $this->_nkg->get('.b-list-models h3.b-list-viewtile__item-title a')->toArray();
+        if (isset($links[0]['href'])) {
+            return $links[0]['href'];
+        }
+        
+        return false;
     }
 
     public function getTitle()

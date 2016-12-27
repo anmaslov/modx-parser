@@ -19,7 +19,7 @@ class App
     private $username = 'nortel';
     private $password = 'password';
     private $start = 0;
-    private $offset = 500;
+    private $offset = 50;
     private $parent = 18491; //Родительская категория
 
     public function init()
@@ -53,34 +53,42 @@ class App
         }
         $this->modx->initialize('mgr');
 
-        $query = $this->modx->newQuery('msProduct');
-        $query->where(array(
-            'content:IN' => array('NULL',''),
-            //'parent' => $this->parent,
-        ));
+        $pdo = $this->modx->getService('pdoFetch');
+        $arItems = $pdo->getCollection(
+            'msProduct',
+            array(
+                'deleted' => false,
+                'published' => true,
+                'isfolder' => false,
+                //'content:IN' => array('NULL',''),
+                'Data.image:IS' => null,
+            ),
+            array(
+                'parents' => $this->parent, // Категория с товарами
+                'innerJoin' => array(
+                    'Data' => array('class' => 'msProductData')
+                ),
+                'select' => array('msProduct' => '*', 'Data' => '*'),
+                'sortby' => 'Data.price',
+                //'sortdir' => 'asc',
+                )
+        );
+        echo "<pre>".date("d.m.Y - H:i:s") . "\r\nВсего пустых записей: ".count($arItems) . "\r\n <br />";
+        print_r($this->modx->getPlaceholder('pdoTools.log'));
+        //print_r($arItems);
+        //cnt = 95
+        echo '</pre>';
 
-        $query->select(array('msProduct.*'));
-        $query->limit($this->offset, $this->start);
-        $query->sortby('id', 'ASC');
-        $total = $this->modx->getCount('msProduct', $query);
-        $query->prepare();
-
-        echo date("d.m.Y - H:i:s") . "\r\n Всего пустых записей: ".$total ."\r\n".$query->toSQL() . "\r\n <br />";
-
-        $arItems = $this->modx->getCollection('msProduct', $query);
-        foreach ($arItems as $item)
+        $i = 0;
+        foreach ($arItems as $arItem)
         {
-            $arItem = $item->toArray();
-            $this->modx->error->reset();
-
-            //make row
-            if (($arItem['image'] == '') && ($arItem['pagetitle'] != '')) {
+            if (trim($arItem['pagetitle']) != '') {
                 $this->makeRow($arItem);
             }
+            if (++$i > 5){
+                break;
+            }
         }
-
-
-        $itemBuilder = new ItemBuilder(new BuilderPriceRu);
 
         /*$itemBuilder->constructItem('Xiaomi Redmi 3s');
         $shopItem = $itemBuilder->getItem();
@@ -92,8 +100,18 @@ class App
 
     private function makeRow($arItem) {
         print '-----Новый товар-----------------------';
-        print '<pre>';
+        /*print '<pre>';
         print_r($arItem);
-        print '</pre>';
+        print '</pre>';*/
+
+        $itemBuilder = new ItemBuilder(new BuilderPriceRu);
+        $itemBuilder->constructItem($arItem['longtitle']);
+        $shopItem = $itemBuilder->getItem();
+
+        echo '<pre>';
+        print_r($shopItem);
+        echo '</pre>';
+
+        unset($itemBuilder);
     }
 }
