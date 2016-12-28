@@ -45,6 +45,8 @@ class BuilderYandexMarket extends BuilderItem {
     {
         $prop = $this->_nkg->get('.n-product-content-block__content ul li')->toArray();
         $this->_item->setProperies($prop);
+
+        $this->PropertyToTable();
     }
 
     public function getImages()

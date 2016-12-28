@@ -61,6 +61,8 @@ class BuilderPriceRu extends BuilderItem{
             $propArr[$propKey] = $propVal;
         }
         $this->_item->setProperies($propArr);
+
+        $this->PropertyToTable(); //set table
     }
 
     public function getImages()
@@ -68,6 +70,7 @@ class BuilderPriceRu extends BuilderItem{
         $images = $this->_nkg->get('ul.modelcard__slideshow li.slideshow__item img')->toArray();
         $this->_item->setImages($images);
 
+        $this->copyImages(); //copy Images to server
     }
 
 

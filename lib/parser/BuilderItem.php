@@ -28,9 +28,16 @@ abstract class BuilderItem{
      */
     public function copyImages() {
         foreach ($this->_item->getImages() as $image) {
+
+            if (substr($image['src'], 0, 2) == '//')
+            {
+                $image['src'] = str_replace("//", "http://", $image['src']);
+            }
+
+            $pos =  strrpos($image['src'], '/');
             copy($image['src'] ,
-                __DIR__ . '/../../upload/' .
-                substr(md5(rand()), 0, 7) . '.' . Utils::extension($image['src']));
+                __DIR__ . '/../../../upload/img/parser/' . substr($image['src'], $pos+1)
+                );
         }
     }
 
@@ -40,7 +47,6 @@ abstract class BuilderItem{
      */
     public function PropertyToTable() {
         if (count($this->_item->getProperies()) > 0){
-            var_dump($this->_item->getProperies());
             $rStr = '<table>';
             foreach ($this->_item->getProperies() as $arKey=>$arItem) {
                 $rStr .= '<tr>';

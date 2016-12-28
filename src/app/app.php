@@ -18,8 +18,7 @@ class App
     public $modx;
     private $username = 'nortel';
     private $password = 'password';
-    private $start = 0;
-    private $offset = 50;
+    private $dirImage = "/upload/img/parser/";                                          // путь к фото
     private $parent = 18491; //Родительская категория
 
     public function init()
@@ -85,32 +84,55 @@ class App
             if (trim($arItem['pagetitle']) != '') {
                 $this->makeRow($arItem);
             }
+            /*//tmp for test
             if (++$i > 5){
                 break;
-            }
+            }*/
         }
-
-        /*$itemBuilder->constructItem('Xiaomi Redmi 3s');
-        $shopItem = $itemBuilder->getItem();
-
-        echo '<pre>';
-        print_r($shopItem);
-        echo '</pre>';*/
     }
 
     private function makeRow($arItem) {
-        print '-----Новый товар-----------------------';
-        /*print '<pre>';
-        print_r($arItem);
-        print '</pre>';*/
-
+       
         $itemBuilder = new ItemBuilder(new BuilderPriceRu);
         $itemBuilder->constructItem($arItem['longtitle']);
         $shopItem = $itemBuilder->getItem();
 
-        echo '<pre>';
-        print_r($shopItem);
-        echo '</pre>';
+        if (count($shopItem->getProperies()) > 0) {
+            $res = $this->modx->getObject('msProduct',array('id' => $arItem['id']));
+            $res->set('content', $shopItem->getPropTable());
+            if ($res->save()) {
+                $this->modx->cacheManager->clearCache(); //если сохранение успешно, то чистим кэш
+                echo "ok, id ". $arItem['id'] ." was updated<br>";
+            }
+        }
+
+        $arImgs = array();
+        foreach ($shopItem->getImages() as $arImg) {
+            $p =  strrpos($arImg['src'], '/');
+            $arImgs[] = substr($arImg['src'], $p+1);
+        }
+
+        if (count($arImgs)) {
+            //import img
+            foreach ($arImgs as $val) {
+                $image = str_replace('//', '/', MODX_BASE_PATH . $this->dirImage. $val);
+                if (!file_exists($image)) {
+                    echo "Could not import image $val to gallery. File $image not found on server.<br>";
+                }
+                else {
+                    $res = $this->modx->runProcessor('gallery/upload',
+                        array('id' => $arItem['id'], 'name' => $val, 'file' => $image),
+                        array('processors_path' => MODX_CORE_PATH.'components/minishop2/processors/mgr/')
+                    );
+                    if ($res->isError()) {
+                        print_r($res->getAllErrors(), 1);
+                    }else{
+                        echo "Item with id ".$arItem['id']." img update <br>";
+                    }
+                    unset($res);
+                }
+            }
+        }
 
         unset($itemBuilder);
     }

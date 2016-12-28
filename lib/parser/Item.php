@@ -31,6 +31,14 @@ class Item
     }
 
     /**
+     * @return string
+     */
+    public function getPropTable()
+    {
+        return $this->_propTable;
+    }
+
+    /**
      * @param string $propTable
      */
     public function setPropTable($propTable)
@@ -38,6 +46,14 @@ class Item
         $this->_propTable = $propTable;
     }
 
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->_title;
+    }
+    
     /**
      * @param string $title
      */
