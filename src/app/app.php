@@ -93,11 +93,10 @@ class App
             if (trim($arItem['pagetitle']) != '') {
                 $this->makeRow($arItem);
             }
-            //tmp for test
-            //if ($i > 2)
-            {
+            /*//tmp for test
+            if (++$i > 5){
                 break;
-            }
+            }*/
         }
 
         $this->log->info("Parse complete, parsed {$this->parsed}, items to parse (" . count($arItems) .")");
@@ -106,8 +105,7 @@ class App
     private function makeRow($arItem)
     {
         $itemBuilder = new ItemBuilder(new BuilderPriceRu);
-        //$itemBuilder->constructItem($arItem['longtitle']);
-        $itemBuilder->constructItem('Samsung J120F Galaxy J1 8Gb Black');
+        $itemBuilder->constructItem($arItem['longtitle']);
         $this->log->debug('start parse from remote host');
         $shopItem = $itemBuilder->getItem();
         //$this->log->debug('parse complite', $shopItem);

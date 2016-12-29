@@ -45,21 +45,8 @@ abstract class BuilderItem{
      * Covert array property to table
      * @return string
      */
-    public function PropertyToTable() {
-        if (count($this->_item->getProperies()) > 0){
-            $rStr = '<table>';
-            foreach ($this->_item->getProperies() as $arKey=>$arItem) {
-                $rStr .= '<tr>';
-                $rStr .= '<td><b>' . $arKey . '</b></td>';
-                $rStr .= '<td>' . $arItem . '</td>';
-                $rStr .= '</tr>';
-            }
-            $rStr .= '</table>';
-            $this->_item->setPropTable($rStr);
-            return $rStr;
-        }else{
-            return '';
-        }
+    protected function PropertyToTable() {
+        return '';
     }
 
 

@@ -50,19 +50,54 @@ class BuilderPriceRu extends BuilderItem{
 
     public function getProperties()
     {
-        $properties = $this->_nkg->get('section.b-model-details__list .b-model-details__item')->toArray();
+        $properties = $this->_nkg->get('section.b-model-details__list .b-model-details-group')->toArray();
 
         $propArr = array();
         foreach ($properties as $arDescr) {
 
-            $propKey = $arDescr['div'][0]['div'][0]['span'][0]['a']['0']['#text'][0];
-            $propVal = $arDescr['div'][1]['span'][0]['#text'][0];
+            $cat = $arDescr['div'][0]['h3'][0]['#text'][0];
 
-            $propArr[$propKey] = $propVal;
+            $pArr = array();
+            foreach ($arDescr['div'][1]['div'] as $arProp)
+            {
+                $propKey = $arProp['div'][0]['div'][0]['span'][0]['a']['0']['#text'][0];
+                $propVal = $arProp['div'][1]['span'][0]['#text'][0];
+                $pArr[$propKey] = $propVal;
+            }
+
+            $propArr[] = array(
+                'group' => $cat,
+                'prop' => $pArr,
+                );
         }
-        $this->_item->setProperies($propArr);
 
+        $this->_item->setProperies($propArr);
         $this->PropertyToTable(); //set table
+    }
+    
+    protected function propertyToTable()
+    {
+        if (count($this->_item->getProperies()) == 0) {
+            return;
+        }
+
+        $rStr = '';
+        foreach ($this->_item->getProperies() as $arProp) {
+            $rStr .= '<h3>'.$arProp['group'].'</h3>';
+
+            if (count($arProp['prop']) > 0) {
+                $rStr .= '<table><tbody>';
+                foreach ($arProp['prop'] as $arKey => $arItem) {
+                    $rStr .= '<tr>';
+                    $rStr .= '<th><span>' . $arKey . '</span></th>';
+                    $rStr .= '<td>' . $arItem . '</td>';
+                    $rStr .= '</tr>';
+                }
+                $rStr .= '</tbody></table>';
+            }
+        }
+        $this->_item->setPropTable($rStr);
+        echo $rStr;
     }
 
     public function getImages()
