@@ -97,7 +97,6 @@ class BuilderPriceRu extends BuilderItem{
             }
         }
         $this->_item->setPropTable($rStr);
-        echo $rStr;
     }
 
     public function getImages()

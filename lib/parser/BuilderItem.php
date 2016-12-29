@@ -36,7 +36,7 @@ abstract class BuilderItem{
 
             $pos =  strrpos($image['src'], '/');
             copy($image['src'] ,
-                __DIR__ . '/../../../upload/img/parser/' . substr($image['src'], $pos+1)
+                __DIR__ . '/../../../upload/img/' . substr($image['src'], $pos+1)
                 );
         }
     }

@@ -22,7 +22,7 @@ class App
     private $log;
     private $username = 'nortel';
     private $password = 'password';
-    private $dirImage = "/upload/img/parser/";
+    private $dirImage = "/upload/img/";
     private $parsed = 0; //count of parsed items
     private $parent = 18491; //Родительская категория
 
@@ -88,7 +88,7 @@ class App
         $i = 0;
         foreach ($arItems as $arItem)
         {
-            $this->log->debug("Parse" . ++$i . "of " . count($arItems));
+            $this->log->debug("Parse " . ++$i . "of " . count($arItems));
 
             if (trim($arItem['pagetitle']) != '') {
                 $this->makeRow($arItem);
