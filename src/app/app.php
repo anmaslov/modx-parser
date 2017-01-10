@@ -24,6 +24,7 @@ class App
     private $password = 'password';
     private $dirImage = "/upload/img/";
     private $parsed = 0; //count of parsed items
+    private $arrNoParse = array();
     private $parent = 18491; //Родительская категория
 
     public function init()
@@ -99,6 +100,7 @@ class App
             }*/
         }
 
+        $this->log->info("ITEMS not parsed", $this->arrNoParse);
         $this->log->info("Parse complete, parsed {$this->parsed}, items to parse (" . count($arItems) .")");
     }
 
@@ -122,6 +124,10 @@ class App
             }
         }else{
             $this->log->info("Item no parsed", $arItem);
+            $this->arrNoParse[] = array(
+                'id' => $arItem['id'],
+                'title' => $arItem['pagetitle'],
+            );
         }
 
         $arImgs = array();
